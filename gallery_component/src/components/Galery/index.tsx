@@ -8,34 +8,40 @@ import {
   VStack,
   Link as LinkK,
 } from "@chakra-ui/react";
-import { useState } from "react";
+
 import { Link } from "react-router-dom";
 import { IoIosArrowDropleftCircle } from "react-icons/io";
 import { BsPatchCheckFill } from "react-icons/bs";
+import { useState, useEffect } from "react";
 
 interface GaleriaProps {
   image: string;
   tittle: string;
+  image_id: number;
 }
 
-export const CardGaleria = ({ image, tittle }: GaleriaProps) => {
+export const CardGaleria = ({ image, tittle, image_id }: GaleriaProps) => {
   const [isLargerThan913] = useMediaQuery("(min-width: 913px)");
 
   const [titleColor, setTitleColor] = useState("primary.main1");
 
   const [backColor, setBackColor] = useState("primary.main");
 
-  const [isSelect, setIsSelect] = useState(false);
+  const [selectedCats, setSelectedCats] = useState([]);
+
+  const [checkButton, setcheckButton] = useState([""]);
+
+  const [IsSelected, setIsSelected] = useState(false);
 
   const ChangeStateColor = () => {
     if (titleColor === "primary.main1" && backColor === "primary.main") {
       setTitleColor("negative.main");
-      setBackColor("gray.50");
-      setIsSelect(true);
+      setBackColor("gray.10");
+      setIsSelected(true);
     } else {
       setTitleColor("primary.main1");
       setBackColor("primary.main");
-      setIsSelect(false);
+      setIsSelected(false);
     }
   };
 
@@ -82,7 +88,13 @@ export const CardGaleria = ({ image, tittle }: GaleriaProps) => {
           <HStack spacing="122px" mb="17px" ml="15px">
             <Box mt="-40px">
               <IoIosArrowDropleftCircle />
-              {isSelect ? <BsPatchCheckFill /> : <></>}
+              {IsSelected ? (
+                <>
+                  <BsPatchCheckFill />
+                </>
+              ) : (
+                <></>
+              )}
             </Box>
 
             <Text
@@ -101,6 +113,7 @@ export const CardGaleria = ({ image, tittle }: GaleriaProps) => {
         </Box>
       ) : (
         <Box
+          onClick={() => ChangeStateColor()}
           border="1px"
           borderColor="gray.100"
           mt="20px"
@@ -109,7 +122,7 @@ export const CardGaleria = ({ image, tittle }: GaleriaProps) => {
             transform: "translateY(2px)",
             borderColor: "primary.main",
           }}
-          bg="primary.main"
+          bg={backColor}
           transition="border 0.2s, ease 0s, transform 0.2s"
           borderRadius="10px  10px 0px 0px"
           width="330px"
@@ -138,6 +151,14 @@ export const CardGaleria = ({ image, tittle }: GaleriaProps) => {
           <HStack spacing="122px" mb="17px" ml="15px">
             <Box mt="-40px">
               <IoIosArrowDropleftCircle />
+
+              {IsSelected ? (
+                <>
+                  <BsPatchCheckFill />
+                </>
+              ) : (
+                <></>
+              )}
             </Box>
 
             <Text
@@ -148,6 +169,7 @@ export const CardGaleria = ({ image, tittle }: GaleriaProps) => {
               white-space="nowrap"
               overflow="hidden"
               text-overflow="ellipsis"
+              color={titleColor}
             >
               {tittle}
             </Text>

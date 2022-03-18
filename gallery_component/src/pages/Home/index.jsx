@@ -12,6 +12,9 @@ import {
 
 import { useState, useEffect } from "react";
 import { CardGaleria } from "../../components/Galery";
+import { Header } from "../../components/Header";
+import { Bar } from "../../components/Header2";
+import { Footer } from "../../components/Footer";
 
 export const Home = () => {
   const [data, setData] = useState([]);
@@ -51,8 +54,6 @@ export const Home = () => {
     }
   };
 
-  console.log(selectedCats);
-
   const LookSelecteds = () => {
     setIsOnSelected(true);
   };
@@ -64,104 +65,119 @@ export const Home = () => {
   return (
     <>
       <Box width="95vw">
-        <Box
-          as="button"
-          color="primary.main"
-          bg="primary.main1"
-          w="200px"
-          h="70px"
-          onClick={() => LookAll()}
-          border="1px"
-          borderColor={"primary.main"}
+        <Header />
+        <Flex
+          flexDirection="column"
+          position="relative"
+          top="100px"
+          left="-10px"
+          textAlign={"center"}
         >
-          Ver todos
-        </Box>
-
-        <Box
-          as="button"
-          color="primary.main"
-          bg="primary.main1"
-          w="200px"
-          h="70px"
-          onClick={() => LookSelecteds()}
-          border="1px"
-          borderColor={"primary.main"}
-        >
-          Ver selecionados
-        </Box>
-
-        {isOnSelected ? (
-          <>
-            {" "}
-            {/* section selecteds*/}
-            <Text>
-              Confira aqui os gatinhos selecionados, para remover dê um clique
-              no gatinho escolhido.
-            </Text>
+          <Text w="1000px" ml="400px" textAlign="center" fontSize={"18px"}>
+            {/*  Confira aqui os gatinhos disponiveis, para selecionar clique no
+            gatinho escolhido e para desmarcar clique nos gatinhos destacados.
+            Confira na aba "selecionados" os gatinhos que escolheu e caso queira
+            excluir dê um clique no gatinho que deseja tirar da sua lista. */}
+          </Text>
+          <VStack>
             <Flex
               flexDirection="row"
-              flexWrap={"wrap"}
-              justifyContent="space-around"
               position="relative"
-              top="70px"
-              ml="22px"
+              top="50px"
+              left="-10px"
             >
-              {selectedCats &&
-                selectedCats.map((cat) => (
-                  <Box as="button" onClick={() => RemoveCat(cat.image_id)}>
-                    <CardGaleria
-                      as="button"
-                      image={cat.url}
-                      tittle={cat.title}
-                      image_id={cat.image_id}
-                      data={data}
-                      selected={isOnSelected}
-                    />
-                  </Box>
-                ))}
+              <Box
+                as="button"
+                color="primary.main"
+                bg="primary.main1"
+                w="200px"
+                h="70px"
+                onClick={() => LookAll()}
+                border="1px"
+                borderColor={"primary.main"}
+              >
+                Ver todos
+              </Box>
+
+              <Box
+                as="button"
+                color="primary.main"
+                bg="primary.main1"
+                w="200px"
+                h="70px"
+                onClick={() => LookSelecteds()}
+                border="1px"
+                borderColor={"primary.main"}
+              >
+                Ver selecionados
+              </Box>
             </Flex>
-          </>
-        ) : (
-          /* section All */
-          <>
-            <Text>
-              Confira aqui todos os gatinhos, para selecionar dê um clique no
-              gatinho escolhido e para tirar a seleção dê um clique nos gatinhos
-              detacados
-            </Text>
-            <Flex
-              flexDirection="row"
-              flexWrap={"wrap"}
-              justifyContent="space-around"
-              position="relative"
-              top="70px"
-              ml="22px"
-            >
-              {data &&
-                data.map((cat) => (
-                  <Box
-                    as="button"
-                    onClick={() =>
-                      AddandRemovetoSelectedCat(
-                        cat.url,
-                        cat.title,
-                        cat.image_id
-                      )
-                    }
-                  >
-                    <CardGaleria
+          </VStack>
+
+          {isOnSelected ? (
+            <>
+              {/* section selecteds*/}
+              <Flex
+                flexDirection="row"
+                flexWrap={"wrap"}
+                justifyContent="space-around"
+                position="relative"
+                top="70px"
+                ml="22px"
+              >
+                {selectedCats &&
+                  selectedCats.map((cat) => (
+                    <Box as="button" onClick={() => RemoveCat(cat.image_id)}>
+                      <CardGaleria
+                        as="button"
+                        image={cat.url}
+                        tittle={cat.title}
+                        image_id={cat.image_id}
+                        data={data}
+                        selected={isOnSelected}
+                      />
+                    </Box>
+                  ))}
+              </Flex>
+            </>
+          ) : (
+            /* section All */
+            <>
+              <Flex
+                flexDirection="row"
+                flexWrap={"wrap"}
+                justifyContent="space-around"
+                position="relative"
+                top="70px"
+                ml="22px"
+              >
+                {data &&
+                  data.map((cat) => (
+                    <Box
                       as="button"
-                      image={cat.url}
-                      tittle={cat.title}
-                      image_id={cat.image_id}
-                      data={data}
-                      selected={isOnSelected}
-                    />
-                  </Box>
-                ))}
-            </Flex>
-          </>
-        )}
+                      onClick={() =>
+                        AddandRemovetoSelectedCat(
+                          cat.url,
+                          cat.title,
+                          cat.image_id
+                        )
+                      }
+                    >
+                      <CardGaleria
+                        as="button"
+                        image={cat.url}
+                        tittle={cat.title}
+                        image_id={cat.image_id}
+                        data={data}
+                        selected={isOnSelected}
+                      />
+                    </Box>
+                  ))}
+              </Flex>
+            </>
+          )}
+        </Flex>
+        <Footer />
       </Box>
     </>
   );

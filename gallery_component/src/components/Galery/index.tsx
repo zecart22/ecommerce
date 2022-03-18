@@ -77,6 +77,7 @@ export const CardGaleria = ({ image, tittle, selected }: GaleriaProps) => {
               ml="30px"
             >
               <Image
+                alt="imagem"
                 borderRadius="10px 10px 0px 0px"
                 src={image}
                 w="270px"
@@ -119,6 +120,7 @@ export const CardGaleria = ({ image, tittle, selected }: GaleriaProps) => {
           </HStack>
         </Box>
       ) : (
+        /* mobile */
         <Box
           onClick={() => ChangeStateColor()}
           border="1px"
@@ -136,6 +138,7 @@ export const CardGaleria = ({ image, tittle, selected }: GaleriaProps) => {
           boxShadow="lg"
           textAlign={"center"}
           justifyContent="column"
+          ml="20px"
         >
           <HStack spacing="-170px" marginTop={6}>
             <Box

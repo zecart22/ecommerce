@@ -1,19 +1,9 @@
-import {
-  Box,
-  Center,
-  Image,
-  Text,
-  useMediaQuery,
-  HStack,
-  VStack,
-  Flex,
-  Link,
-} from "@chakra-ui/react";
+import { Box, Text, VStack, Flex, useMediaQuery } from "@chakra-ui/react";
 
 import { useState, useEffect } from "react";
 import { CardGaleria } from "../../components/Galery";
 import { Header } from "../../components/Header";
-import { Bar } from "../../components/Header2";
+
 import { Footer } from "../../components/Footer";
 
 export const Home = () => {
@@ -22,6 +12,8 @@ export const Home = () => {
   const [selectedCats, setSelectedCats] = useState([]);
 
   const [isOnSelected, setIsOnSelected] = useState(false);
+
+  const [isLargerThan769] = useMediaQuery("(min-width: 769px)");
 
   useEffect(() => {
     fetch("./images.json", {
@@ -66,6 +58,7 @@ export const Home = () => {
     <>
       <Box width="95vw">
         <Header />
+        <Text id="#"></Text>
         <Flex
           flexDirection="column"
           position="relative"
@@ -73,46 +66,82 @@ export const Home = () => {
           left="-10px"
           textAlign={"center"}
         >
-          <Text w="1000px" ml="400px" textAlign="center" fontSize={"18px"}>
-            {/*  Confira aqui os gatinhos disponiveis, para selecionar clique no
-            gatinho escolhido e para desmarcar clique nos gatinhos destacados.
-            Confira na aba "selecionados" os gatinhos que escolheu e caso queira
-            excluir dê um clique no gatinho que deseja tirar da sua lista. */}
-          </Text>
-          <VStack>
-            <Flex
-              flexDirection="row"
-              position="relative"
-              top="50px"
-              left="-10px"
-            >
-              <Box
-                as="button"
-                color="primary.main"
-                bg="primary.main1"
-                w="200px"
-                h="70px"
-                onClick={() => LookAll()}
-                border="1px"
-                borderColor={"primary.main"}
-              >
-                Ver todos
-              </Box>
+          {isLargerThan769 ? (
+            <>
+              <VStack>
+                <Flex
+                  flexDirection="row"
+                  position="relative"
+                  top="50px"
+                  left="-10px"
+                >
+                  <Box
+                    as="button"
+                    color="primary.main"
+                    bg="primary.main1"
+                    w="200px"
+                    h="70px"
+                    onClick={() => LookAll()}
+                    border="1px"
+                    borderColor={"primary.main"}
+                  >
+                    Ver todos
+                  </Box>
 
-              <Box
-                as="button"
-                color="primary.main"
-                bg="primary.main1"
-                w="200px"
-                h="70px"
-                onClick={() => LookSelecteds()}
-                border="1px"
-                borderColor={"primary.main"}
-              >
-                Ver selecionados
-              </Box>
-            </Flex>
-          </VStack>
+                  <Box
+                    as="button"
+                    color="primary.main"
+                    bg="primary.main1"
+                    w="200px"
+                    h="70px"
+                    onClick={() => LookSelecteds()}
+                    border="1px"
+                    borderColor={"primary.main"}
+                  >
+                    Ver selecionados
+                  </Box>
+                </Flex>
+              </VStack>
+            </>
+          ) : (
+            <>
+              {/* mobile */}
+              <VStack>
+                <Flex
+                  flexDirection="column"
+                  position="relative"
+                  top="50px"
+                  left="20px"
+                >
+                  <Box
+                    as="button"
+                    color="primary.main"
+                    bg="primary.main1"
+                    w="200px"
+                    h="70px"
+                    onClick={() => LookAll()}
+                    border="1px"
+                    borderColor={"primary.main"}
+                  >
+                    Ver todos
+                  </Box>
+
+                  <Box
+                    as="button"
+                    color="primary.main"
+                    bg="primary.main1"
+                    w="200px"
+                    h="70px"
+                    onClick={() => LookSelecteds()}
+                    border="1px"
+                    borderColor={"primary.main"}
+                  >
+                    Ver selecionados
+                  </Box>
+                </Flex>
+              </VStack>
+            </>
+          )}
 
           {isOnSelected ? (
             <>
@@ -177,6 +206,7 @@ export const Home = () => {
             </>
           )}
         </Flex>
+        <Text id="footer"></Text>
         <Footer />
       </Box>
     </>

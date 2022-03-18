@@ -11,8 +11,6 @@ import {
 
 import { useHistory, useLocation } from "react-router-dom";
 
-import { Menu } from "./Menu";
-
 export const Header = () => {
   const { isOpen, onClose, onToggle } = useDisclosure();
   const [isLargerThan769] = useMediaQuery("(min-width: 769px)");
@@ -58,18 +56,26 @@ export const Header = () => {
             <HStack spacing="5">
               <Text as="button" _hover={{ transform: "translateY(-4px)" }}>
                 {isHome ? (
-                  <Link href="#">INICIO</Link>
+                  <Link href="#footer">RODAPÉ</Link>
                 ) : (
-                  <Link href="/">INICIO</Link>
+                  <Link href="#footer">RODPÉ</Link>
                 )}
               </Text>
               <Text as="button" _hover={{ transform: "translateY(-4px)" }}>
                 {isHome ? (
-                  <Link color="destak.main" href="#portifolio">
+                  <Link
+                    color="destak.main"
+                    href="https://bit.ly/3I4Q6WR"
+                    isExternal
+                  >
                     PORTFÓLIO
                   </Link>
                 ) : (
-                  <Link href="#portifolio" color="destak.main">
+                  <Link
+                    href="#https://bit.ly/3I4Q6WR"
+                    color="destak.main"
+                    isExternal
+                  >
                     PORTFÓLIO
                   </Link>
                 )}
@@ -95,27 +101,62 @@ export const Header = () => {
           </Flex>
         </>
       ) : (
+        /* mobile */
         <>
-          <Flex>
-            <Center>
-              <Image
-                src={""}
-                h="40px"
-                w="47"
-                ml="15px"
+          <Flex ml="45px">
+            <HStack spacing="5">
+              <Text
+                as="button"
+                color="primary.main"
                 _hover={{ transform: "translateY(-4px)" }}
-              />
-            </Center>
-            <Text
-              color="destak.main"
-              fontSize="19px"
-              fontFamily="Monoton"
-              as="button"
-              ml="35px"
-              _hover={{ transform: "translateY(-4px)" }}
-            >
-              <Link href="#portifolio">Portifolio</Link>
-            </Text>
+              >
+                {isHome ? (
+                  <Link href="#footer">RODAPÉ</Link>
+                ) : (
+                  <Link href="#footer">RODPÉ</Link>
+                )}
+              </Text>
+              <Text as="button" _hover={{ transform: "translateY(-4px)" }}>
+                {isHome ? (
+                  <Link
+                    color="destak.main"
+                    href="https://bit.ly/3I4Q6WR"
+                    isExternal
+                  >
+                    PORTFÓLIO
+                  </Link>
+                ) : (
+                  <Link
+                    href="#https://bit.ly/3I4Q6WR"
+                    color="destak.main"
+                    isExternal
+                  >
+                    PORTFÓLIO
+                  </Link>
+                )}
+              </Text>
+              <Text
+                color="primary.main"
+                as="button"
+                _hover={{ transform: "translateY(-4px)" }}
+              >
+                {isHome ? (
+                  <Link
+                    href="https://www.linkedin.com/in/robertpupo/"
+                    isExternal
+                  >
+                    CONTATO
+                  </Link>
+                ) : (
+                  <Link
+                    href="https://www.linkedin.com/in/robertpupo/"
+                    isExternal
+                  >
+                    CONTATO
+                  </Link>
+                )}
+              </Text>
+            </HStack>
           </Flex>
         </>
       )}

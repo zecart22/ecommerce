@@ -18,23 +18,24 @@ interface GaleriaProps {
   image: string;
   tittle: string;
   image_id: number;
+  selected: boolean;
 }
 
-export const CardGaleria = ({ image, tittle, image_id }: GaleriaProps) => {
+export const CardGaleria = ({ image, tittle, selected }: GaleriaProps) => {
   const [isLargerThan913] = useMediaQuery("(min-width: 913px)");
 
   const [titleColor, setTitleColor] = useState("primary.main1");
 
   const [backColor, setBackColor] = useState("primary.main");
 
-  const [selectedCats, setSelectedCats] = useState([]);
-
-  const [checkButton, setcheckButton] = useState([""]);
-
   const [IsSelected, setIsSelected] = useState(false);
 
   const ChangeStateColor = () => {
-    if (titleColor === "primary.main1" && backColor === "primary.main") {
+    if (
+      titleColor === "primary.main1" &&
+      backColor === "primary.main" &&
+      !selected
+    ) {
       setTitleColor("negative.main");
       setBackColor("gray.10");
       setIsSelected(true);
@@ -88,12 +89,18 @@ export const CardGaleria = ({ image, tittle, image_id }: GaleriaProps) => {
           <HStack spacing="122px" mb="17px" ml="15px">
             <Box mt="-40px">
               <IoIosArrowDropleftCircle />
-              {IsSelected ? (
-                <>
-                  <BsPatchCheckFill />
-                </>
+              {selected ? (
+                ""
               ) : (
-                <></>
+                <>
+                  {IsSelected ? (
+                    <>
+                      <BsPatchCheckFill />
+                    </>
+                  ) : (
+                    <></>
+                  )}
+                </>
               )}
             </Box>
 

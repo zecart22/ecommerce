@@ -18,6 +18,8 @@ export const Home = () => {
 
   const [selectedCats, setSelectedCats] = useState([]);
 
+  const [isOnSelected, setIsOnSelected] = useState(false);
+
   useEffect(() => {
     fetch("./images.json", {
       headers: {
@@ -51,35 +53,115 @@ export const Home = () => {
 
   console.log(selectedCats);
 
+  const LookSelecteds = () => {
+    setIsOnSelected(true);
+  };
+
+  const LookAll = () => {
+    setIsOnSelected(false);
+  };
+
   return (
     <>
       <Box width="95vw">
-        <Flex
-          flexDirection="row"
-          flexWrap={"wrap"}
-          justifyContent="space-around"
-          position="relative"
-          top="70px"
-          ml="22px"
+        <Box
+          as="button"
+          color="primary.main"
+          bg="primary.main1"
+          w="200px"
+          h="70px"
+          onClick={() => LookAll()}
+          border="1px"
+          borderColor={"primary.main"}
         >
-          {data &&
-            data.map((cat) => (
-              <Box
-                as="button"
-                onClick={() =>
-                  AddandRemovetoSelectedCat(cat.url, cat.title, cat.image_id)
-                }
-              >
-                <CardGaleria
-                  as="button"
-                  image={cat.url}
-                  tittle={cat.title}
-                  image_id={cat.image_id}
-                  data={data}
-                />
-              </Box>
-            ))}
-        </Flex>
+          Ver todos
+        </Box>
+
+        <Box
+          as="button"
+          color="primary.main"
+          bg="primary.main1"
+          w="200px"
+          h="70px"
+          onClick={() => LookSelecteds()}
+          border="1px"
+          borderColor={"primary.main"}
+        >
+          Ver selecionados
+        </Box>
+
+        {isOnSelected ? (
+          <>
+            {" "}
+            {/* section selecteds*/}
+            <Text>
+              Confira aqui os gatinhos selecionados, para remover dê um clique
+              no gatinho escolhido.
+            </Text>
+            <Flex
+              flexDirection="row"
+              flexWrap={"wrap"}
+              justifyContent="space-around"
+              position="relative"
+              top="70px"
+              ml="22px"
+            >
+              {selectedCats &&
+                selectedCats.map((cat) => (
+                  <Box as="button" onClick={() => RemoveCat(cat.image_id)}>
+                    <CardGaleria
+                      as="button"
+                      image={cat.url}
+                      tittle={cat.title}
+                      image_id={cat.image_id}
+                      data={data}
+                      selected={isOnSelected}
+                    />
+                  </Box>
+                ))}
+            </Flex>
+          </>
+        ) : (
+          /* section All */
+          <>
+            <Text>
+              Confira aqui todos os gatinhos, para selecionar dê um clique no
+              gatinho escolhido e para tirar a seleção dê um clique nos gatinhos
+              detacados
+            </Text>
+            <Flex
+              flexDirection="row"
+              flexWrap={"wrap"}
+              justifyContent="space-around"
+              position="relative"
+              top="70px"
+              ml="22px"
+            >
+              {data &&
+                data.map((cat) => (
+                  <Box
+                    as="button"
+                    onClick={() =>
+                      AddandRemovetoSelectedCat(
+                        cat.url,
+                        cat.title,
+                        cat.image_id
+                      )
+                    }
+                  >
+                    <CardGaleria
+                      as="button"
+                      image={cat.url}
+                      tittle={cat.title}
+                      image_id={cat.image_id}
+                      data={data}
+                      selected={isOnSelected}
+                    />
+                  </Box>
+                ))}
+            </Flex>
+          </>
+        )}
       </Box>
     </>
   );

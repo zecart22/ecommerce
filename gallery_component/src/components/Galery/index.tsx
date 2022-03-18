@@ -1,18 +1,15 @@
 import {
   Box,
-  Center,
   Image,
   Text,
   useMediaQuery,
   HStack,
-  VStack,
   Link as LinkK,
 } from "@chakra-ui/react";
 
-import { Link } from "react-router-dom";
 import { IoIosArrowDropleftCircle } from "react-icons/io";
 import { BsPatchCheckFill } from "react-icons/bs";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 interface GaleriaProps {
   image: string;

@@ -12,9 +12,8 @@ import {
 import { useHistory, useLocation } from "react-router-dom";
 
 export const Header = () => {
-  const { isOpen, onClose, onToggle } = useDisclosure();
   const [isLargerThan769] = useMediaQuery("(min-width: 769px)");
-  const history = useHistory();
+
   const location = useLocation();
   let isHome = true;
 

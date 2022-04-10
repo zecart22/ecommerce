@@ -1,209 +1,125 @@
-import { Box, Text, VStack, Flex, useMediaQuery } from "@chakra-ui/react";
+import {
+  Box,
+  Text,
+  VStack,
+  Flex,
+  useMediaQuery,
+  Image,
+  Input,
+  HStack,
+} from "@chakra-ui/react";
 
-import { useState, useEffect } from "react";
+import { useContext } from "react";
 import { CardGaleria } from "../../components/Galery";
 import { Header } from "../../components/Header";
-
 import { Footer } from "../../components/Footer";
+import { ProductsContext } from "../../contexts/Products";
+import bannerFixo from "../../assets/images/bannerfixo.png";
+import bannerDestak from "../../assets/images/bannerdestak.png";
+import bannerSofa from "../../assets/images/bannersofa.png";
 
 export const Home = () => {
-  const [data, setData] = useState([]);
-
-  const [selectedCats, setSelectedCats] = useState([]);
-
-  const [isOnSelected, setIsOnSelected] = useState(false);
+  const { products } = useContext(ProductsContext);
 
   const [isLargerThan769] = useMediaQuery("(min-width: 769px)");
-
-  useEffect(() => {
-    fetch("./images.json", {
-      headers: {
-        Accept: "application.json",
-      },
-    })
-      .then((res) => res.json())
-      .then((res) => setData(res));
-  }, []);
-
-  const TakeId = (id) => {
-    console.log(id);
-  };
-
-  function RemoveCat(id) {
-    const index = selectedCats.findIndex((cat) => cat.id === id);
-    const removedCat = selectedCats.splice(index, 1);
-    setSelectedCats([...selectedCats]);
-  }
-
-  const AddandRemovetoSelectedCat = (url, title, image_id) => {
-    if (!selectedCats.some((cat) => cat.id === image_id)) {
-      setSelectedCats([
-        ...selectedCats,
-        { url: url, title: title, id: image_id, selected: true },
-      ]);
-    } else if (selectedCats.some((cat) => cat.id === image_id)) {
-      RemoveCat(image_id);
-    }
-  };
-
-  const LookSelecteds = () => {
-    setIsOnSelected(true);
-  };
-
-  const LookAll = () => {
-    setIsOnSelected(false);
-  };
 
   return (
     <>
       <Box width="95vw">
         <Header />
-        <Text id="#"></Text>
+
         <Flex
           flexDirection="column"
           position="relative"
           top="100px"
           left="-10px"
           textAlign={"center"}
+          justifyContent="center"
+          alignItems="center"
         >
           {isLargerThan769 ? (
             <>
               <VStack>
-                <Flex
-                  flexDirection="row"
-                  position="relative"
-                  top="50px"
-                  left="-10px"
-                >
+                <Flex flexDirection={"column"}>
+                  <Image
+                    src={bannerFixo}
+                    mt="55px"
+                    ml="165px"
+                    w="1200px"
+                    dropShadow="0px 8px 4px rgba(0, 0, 0, 0.25)"
+                  />
+                  <Image src={bannerDestak} mt="5px" ml="165px" w="1200px" />
                   <Box
-                    as="button"
-                    color="primary.main"
-                    bg="primary.main1"
-                    w="200px"
-                    h="70px"
-                    onClick={() => LookAll()}
-                    border="1px"
-                    borderColor={"primary.main"}
+                    mt="5px"
+                    ml="165px"
+                    w="1200px"
+                    h="150px"
+                    bg="destak.main"
+                    borderRadius="5px"
+                    flexDirection={"row"}
                   >
-                    Ver todos
+                    <HStack mt="45px" ml="60px" spacing={"125px"}>
+                      <Text
+                        fontSize={"20px"}
+                        color="primary.main"
+                        fontWeight={"bold"}
+                      >
+                        Receba ofertas exclusivas por email!
+                      </Text>
+                      <HStack spacing={"10px"}>
+                        <Input
+                          variant="outline"
+                          w="220px"
+                          h="50px"
+                          bg="primary.main"
+                          placeholder="nome"
+                        />
+                        <Input
+                          variant="outline"
+                          w="220px"
+                          h="50px"
+                          bg="primary.main"
+                          placeholder="email"
+                        />
+                      </HStack>
+                      <Text as="button" fontSize={"20px"} color="primary.main">
+                        Enviar
+                      </Text>
+                    </HStack>
                   </Box>
-
-                  <Box
-                    as="button"
-                    color="primary.main"
-                    bg="primary.main1"
-                    w="200px"
-                    h="70px"
-                    onClick={() => LookSelecteds()}
-                    border="1px"
-                    borderColor={"primary.main"}
+                  <Flex
+                    w="1200px"
+                    ml="165px"
+                    bg="primary.main"
+                    borderRadius="5px"
+                    flexWrap={"wrap"}
+                    flexDirection="row"
+                    justifyContent={"space-around"}
                   >
-                    Ver selecionados
-                  </Box>
+                    {products &&
+                      products.map((product) => (
+                        <CardGaleria
+                          image={product.link_image}
+                          tittle={product.title}
+                          price={product.price}
+                          pricePromo={product.price_promotional}
+                        />
+                      ))}
+                  </Flex>
+                  <Image
+                    src={bannerSofa}
+                    mt="15px"
+                    mb="55px"
+                    ml="165px"
+                    w="1200px"
+                    boxShadow="lg"
+                  />
                 </Flex>
               </VStack>
+              <Footer />
             </>
           ) : (
-            <>
-              {/* mobile */}
-              <VStack>
-                <Flex
-                  flexDirection="column"
-                  position="relative"
-                  top="50px"
-                  left="20px"
-                >
-                  <Box
-                    as="button"
-                    color="primary.main"
-                    bg="primary.main1"
-                    w="200px"
-                    h="70px"
-                    onClick={() => LookAll()}
-                    border="1px"
-                    borderColor={"primary.main"}
-                  >
-                    Ver todos
-                  </Box>
-
-                  <Box
-                    as="button"
-                    color="primary.main"
-                    bg="primary.main1"
-                    w="200px"
-                    h="70px"
-                    onClick={() => LookSelecteds()}
-                    border="1px"
-                    borderColor={"primary.main"}
-                  >
-                    Ver selecionados
-                  </Box>
-                </Flex>
-              </VStack>
-            </>
-          )}
-
-          {isOnSelected ? (
-            <>
-              {/* section selecteds*/}
-              <Flex
-                flexDirection="row"
-                flexWrap={"wrap"}
-                justifyContent="space-around"
-                position="relative"
-                top="70px"
-                ml="22px"
-              >
-                {selectedCats &&
-                  selectedCats.map((cat) => (
-                    <Box as="button" onClick={() => RemoveCat(cat.image_id)}>
-                      <CardGaleria
-                        as="button"
-                        image={cat.url}
-                        tittle={cat.title}
-                        image_id={cat.image_id}
-                        data={data}
-                        selected={isOnSelected}
-                      />
-                    </Box>
-                  ))}
-              </Flex>
-            </>
-          ) : (
-            /* section All */
-            <>
-              <Flex
-                flexDirection="row"
-                flexWrap={"wrap"}
-                justifyContent="space-around"
-                position="relative"
-                top="70px"
-                ml="22px"
-              >
-                {data &&
-                  data.map((cat) => (
-                    <Box
-                      as="button"
-                      onClick={() =>
-                        AddandRemovetoSelectedCat(
-                          cat.url,
-                          cat.title,
-                          cat.image_id
-                        )
-                      }
-                    >
-                      <CardGaleria
-                        as="button"
-                        image={cat.url}
-                        tittle={cat.title}
-                        image_id={cat.image_id}
-                        data={data}
-                        selected={isOnSelected}
-                      />
-                    </Box>
-                  ))}
-              </Flex>
-            </>
+            <>{/* mobile */}</>
           )}
         </Flex>
         <Text id="footer"></Text>

@@ -60,12 +60,12 @@ export const Footer = () => {
       {isLargerThan769 ? (
         <Flex
           width="100vw"
-          h="72px"
+          h="40px"
           flexDirection="row"
           justifyContent="space-between"
           px="5"
           py="1"
-          bg="primary.main1"
+          bg="destak.main"
           boxShadow="0px 1px 4px"
           position="fixed"
           bottom="0px"
@@ -78,9 +78,9 @@ export const Footer = () => {
             <HStack spacing="5">
               <Text as="button" _hover={{ transform: "translateY(-4px)" }}>
                 {isHome ? (
-                  <Link href="#">INICIO</Link>
+                  <Link href="#">TOPO</Link>
                 ) : (
-                  <Link href="/">INICIO</Link>
+                  <Link href="/">TOPO</Link>
                 )}
               </Text>
             </HStack>
@@ -109,9 +109,9 @@ export const Footer = () => {
             <HStack spacing="5">
               <Text as="button" _hover={{ transform: "translateY(-4px)" }}>
                 {isHome ? (
-                  <Link href="#">INICIO</Link>
+                  <Link href="#">TOPO</Link>
                 ) : (
-                  <Link href="/">INICIO</Link>
+                  <Link href="/">TOPO</Link>
                 )}
               </Text>
             </HStack>

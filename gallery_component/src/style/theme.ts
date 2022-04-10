@@ -19,6 +19,7 @@ const theme = extendTheme({
       600: "#333333",
     },
     green: {
+      50: "#8CF209",
       100: "#19F59A",
     },
     negative: {
@@ -32,6 +33,7 @@ const theme = extendTheme({
     },
     destak: {
       main: "#00B5B5",
+      main1: "#F2FCFC",
     },
   },
   textStyles: {

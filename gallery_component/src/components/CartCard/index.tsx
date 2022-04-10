@@ -10,13 +10,13 @@ import {
 } from "@chakra-ui/react";
 
 import { useContext } from "react";
-import { ProductsContext } from "../../contexts/Products";
+import { CartContext } from "../../contexts/Cart";
 import { IoIosArrowDropleftCircle } from "react-icons/io";
 import { BsPatchCheckFill } from "react-icons/bs";
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
 
-interface GaleriaProps {
+interface CardCartProps {
   image: string;
   tittle: string;
   description: string;
@@ -26,15 +26,10 @@ interface GaleriaProps {
   selected: boolean;
 }
 
-export const CardGaleria = ({
-  image,
-  tittle,
-  selected,
-  price,
-}: GaleriaProps) => {
+export const CardCart = ({ image, tittle, selected, price }: CardCartProps) => {
   const history = useHistory();
 
-  const { products, cart, setCart, AddCart } = useContext(ProductsContext);
+  const { RemoveCart } = useContext(CartContext);
 
   const [isLargerThan913] = useMediaQuery("(min-width: 913px)");
 
@@ -44,58 +39,45 @@ export const CardGaleria = ({
 
   const [IsSelected, setIsSelected] = useState(false);
 
-  const ChangeStateColor = () => {
-    if (titleColor === "primary.main1" && !selected) {
-      setTitleColor("negative.main");
-
-      setIsSelected(true);
-    } else {
-      setTitleColor("primary.main1");
-
-      setIsSelected(false);
-    }
-  };
-
   return (
     <>
       {isLargerThan913 ? (
         <Box
-          onClick={() => ChangeStateColor()}
           border="1px"
-          borderColor="primary.main"
+          borderColor="gray.100"
           mt="8px"
           cursor="pointer"
           _hover={{
-            transform: "translateY(1px)",
-            borderColor: "gray.400",
+            transform: "translateY(2px)",
+            borderColor: "primary.main",
+            boxShadow: "lg",
           }}
           bg={backColor}
           transition="border 0.2s, ease 0s, transform 0.2s"
           borderRadius="10px  10px 0px 0px"
-          width="225px"
+          width="1220px"
           textAlign={"center"}
-          justifyContent="column"
-          boxShadow="lg"
+          flexDirection={"row"}
         >
-          <HStack spacing="-170px" marginTop={6}>
-            <Box
-              width="225px"
-              h="225px"
-              marginBottom={6}
-              align-items="center"
-              bgImage={image}
-              backgroundPosition="center"
-              backgroundRepeat="no-repeat"
-              backgroundSize="contain"
-            />
-          </HStack>
+          <Box
+            width="225px"
+            h="225px"
+            ml="20px"
+            
+            marginBottom={6}
+            marginTop={6}
+            align-items="center"
+            bgImage={image}
+            backgroundPosition="center"
+            backgroundRepeat="no-repeat"
+            backgroundSize="contain"
+          />
 
-          <HStack mb="17px" flexDirection={"column"}>
+          <HStack mb="17px" flexDirection={"column"} mt="-220px">
             <VStack spacing={"10px"}>
               <VStack spacing={"-5px"}>
                 <Text
                   as="span"
-                  w="400px"
                   h="70px"
                   display="inline-block"
                   white-space="nowrap"
@@ -107,7 +89,6 @@ export const CardGaleria = ({
                 </Text>
                 <Text
                   as="span"
-                  w="400px"
                   h="70px"
                   display="inline-block"
                   white-space="nowrap"
@@ -122,20 +103,11 @@ export const CardGaleria = ({
               <Button
                 width="190px"
                 height="40px"
-                bg="gray.400"
-                color="primary.main"
-                onClick={() => AddCart(tittle)}
+                bg="primary.main"
+                color="primary.main1"
+                onClick={() => RemoveCart(tittle)}
               >
-                Adicionar no carrinho
-              </Button>
-              <Button
-                width="190px"
-                height="40px"
-                bg="green.50"
-                color="primary.main"
-                onClick={() => history.push("/ckeckout")}
-              >
-                Finalizar Compra
+                Tirar do carrinho
               </Button>
             </VStack>
           </HStack>
@@ -143,7 +115,6 @@ export const CardGaleria = ({
       ) : (
         /* mobile */
         <Box
-          onClick={() => ChangeStateColor()}
           border="1px"
           borderColor="gray.100"
           mt="20px"

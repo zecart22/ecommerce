@@ -145,65 +145,82 @@ export const CardGaleria = ({
         <Box
           onClick={() => ChangeStateColor()}
           border="1px"
-          borderColor="gray.100"
-          mt="20px"
+          borderColor="primary.main"
+          mt="8px"
           cursor="pointer"
           _hover={{
-            transform: "translateY(2px)",
-            borderColor: "primary.main",
+            transform: "translateY(1px)",
+            borderColor: "gray.400",
           }}
           bg={backColor}
           transition="border 0.2s, ease 0s, transform 0.2s"
           borderRadius="10px  10px 0px 0px"
-          width="330px"
-          boxShadow="lg"
+          width="220px"
           textAlign={"center"}
+          alignItems={"center"}
           justifyContent="column"
-          ml="20px"
+          boxShadow="lg"
         >
           <HStack spacing="-170px" marginTop={6}>
             <Box
-              width="270px"
-              h="300px"
+              width="225px"
+              h="225px"
               marginBottom={6}
-              align-items="center"
-              ml="30px"
-            >
-              <Image
-                borderRadius="10px 10px 0px 0px"
-                src={image}
-                w="270px"
-                h="300px"
-                objectFit="cover"
-              />
-            </Box>
+              bgImage={image}
+              backgroundPosition="center"
+              backgroundRepeat="no-repeat"
+              backgroundSize="contain"
+            />
           </HStack>
 
-          <HStack spacing="122px" mb="17px" ml="15px">
-            <Box mt="-40px">
-              <IoIosArrowDropleftCircle />
+          <HStack mb="17px" flexDirection={"column"}>
+            <VStack spacing={"10px"}>
+              <VStack spacing={"-5px"}>
+                <Text
+                  as="span"
+                  w="400px"
+                  h="70px"
+                  display="inline-block"
+                  white-space="nowrap"
+                  overflow="hidden"
+                  text-overflow="ellipsis"
+                  color={titleColor}
+                >
+                  {tittle}
+                </Text>
+                <Text
+                  as="span"
+                  w="400px"
+                  h="70px"
+                  display="inline-block"
+                  white-space="nowrap"
+                  overflow="hidden"
+                  text-overflow="ellipsis"
+                  color={titleColor}
+                >
+                  R${price.toFixed(2)}
+                </Text>
+              </VStack>
 
-              {IsSelected ? (
-                <>
-                  <BsPatchCheckFill />
-                </>
-              ) : (
-                <></>
-              )}
-            </Box>
-
-            <Text
-              as="span"
-              w="200px"
-              h="70px"
-              display="inline-block"
-              white-space="nowrap"
-              overflow="hidden"
-              text-overflow="ellipsis"
-              color={titleColor}
-            >
-              {tittle}
-            </Text>
+              <Button
+                width="190px"
+                height="40px"
+                bg="gray.400"
+                color="primary.main"
+                onClick={() => AddCart(tittle)}
+              >
+                Adicionar no carrinho
+              </Button>
+              <Button
+                width="190px"
+                height="40px"
+                bg="green.50"
+                color="primary.main"
+                onClick={() => history.push("/ckeckout")}
+              >
+                Finalizar Compra
+              </Button>
+            </VStack>
           </HStack>
         </Box>
       )}

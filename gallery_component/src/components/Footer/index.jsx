@@ -91,12 +91,12 @@ export const Footer = () => {
 
         <Flex
           width="100vw"
-          h="72px"
+          h="40px"
           flexDirection="row"
           justifyContent="space-between"
           px="5"
           py="1"
-          bg="primary.main1"
+          bg="destak.main"
           boxShadow="0px 1px 4px"
           position="fixed"
           bottom="0px"

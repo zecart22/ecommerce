@@ -116,10 +116,72 @@ export const Home = () => {
                   />
                 </Flex>
               </VStack>
-              <Footer />
             </>
           ) : (
-            <>{/* mobile */}</>
+            <>
+              <Box flexDirection={"column"}>
+                <Image
+                  src={bannerFixo}
+                  mt="55px"
+                  w="413px"
+                  dropShadow="0px 8px 4px rgba(0, 0, 0, 0.25)"
+                />
+                <Image src={bannerDestak} mt="5px" w="413px" />
+                <Box mt="5px" w="413px" bg="destak.main" padding={"5px"}>
+                  <HStack
+                    flexDirection={"column"}
+                    alignItems="center"
+                    ml="50px"
+                  >
+                    <Text
+                      fontSize={"13px"}
+                      color="primary.main"
+                      fontWeight={"bold"}
+                      ml="-40px"
+                    >
+                      Receba ofertas exclusivas por email!
+                    </Text>
+                    <HStack spacing={"10px"}>
+                      <Input
+                        variant="outline"
+                        w="100px"
+                        h="20px"
+                        bg="primary.main"
+                        placeholder="nome"
+                      />
+                      <Input
+                        variant="outline"
+                        w="100px"
+                        h="20px"
+                        bg="primary.main"
+                        placeholder="email"
+                      />
+                      <Text as="button" fontSize={"15px"} color="primary.main">
+                        Enviar
+                      </Text>
+                    </HStack>
+                  </HStack>
+                </Box>
+                <Flex flexDirection="column" alignItems={"center"}>
+                  {products &&
+                    products.map((product) => (
+                      <CardGaleria
+                        image={product.link_image}
+                        tittle={product.title}
+                        price={product.price}
+                        pricePromo={product.price_promotional}
+                      />
+                    ))}
+                </Flex>
+                <Image
+                  src={bannerSofa}
+                  mt="15px"
+                  mb="55px"
+                  w="413px"
+                  boxShadow="lg"
+                />
+              </Box>
+            </>
           )}
         </Flex>
         <Text id="footer"></Text>

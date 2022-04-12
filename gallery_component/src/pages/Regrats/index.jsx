@@ -89,7 +89,7 @@ export const Regrats = () => {
         <>
           <Flex
             justifyContent="center"
-            alignItems={["flex-start", "flex-start", "center"]}
+            alignItems={"center"}
             flexDirection="column"
             ml="22px"
           >

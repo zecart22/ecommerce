@@ -59,7 +59,7 @@ export const Signup = () => {
               w="240px"
               h="60px"
               /* label="Email" */
-              placeholder="Digite seu email*"
+              placeholder="digite seu email*"
               /* error={"erro"} */
               /*  {...register("email")} */
             />
